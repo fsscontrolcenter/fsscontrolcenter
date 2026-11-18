@@ -8,7 +8,7 @@ echo ==========================================
 
 where py >nul 2>nul
 if errorlevel 1 (
-    echo Python Launcher (py) tidak ditemukan.
+    echo Python Launcher tidak ditemukan.
     pause
     exit /b 1
 )

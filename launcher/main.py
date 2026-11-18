@@ -201,6 +201,7 @@ class Launcher:
             log_level="warning",
             access_log=False,
             reload=False,
+            log_config=None,
         )
         self.api_server = uvicorn.Server(config)
         self.api_thread = threading.Thread(target=self.api_server.run, daemon=True)
