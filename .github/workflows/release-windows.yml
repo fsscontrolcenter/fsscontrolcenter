@@ -1,0 +1,56 @@
+name: Build Windows Launcher
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r be/requirements.txt
+          pip install pyinstaller
+
+      - name: Test backend
+        working-directory: be
+        run: python -m pytest -q test
+
+      - name: Build frontend
+        working-directory: fe
+        run: |
+          npm install
+          npm run build
+
+      - name: Build Windows launcher
+        shell: cmd
+        run: |
+          pyinstaller --noconfirm --clean --onedir --windowed --name FSSControlCenter --paths be --add-data "be\app;be\app" --add-data "fe\dist;fe\dist" --collect-all fastapi --collect-all uvicorn --collect-all pandas --collect-all openpyxl --collect-all xlwings --hidden-import win32com.client --hidden-import pythoncom --hidden-import pywintypes launcher\main.py
+
+      - name: Package
+        shell: pwsh
+        run: Compress-Archive -Path "dist/FSSControlCenter/*" -DestinationPath "dist/FSS-Control-Center-Windows.zip" -Force
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/FSS-Control-Center-Windows.zip

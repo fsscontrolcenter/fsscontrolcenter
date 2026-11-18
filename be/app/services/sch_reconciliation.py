@@ -35,6 +35,7 @@ MASTER_ALIASES = {
     "date": "Date", "vendorcode": "Vendor code", "vendorname": "Vendor name",
     "receivingarea": "Receiving Area", "recievingarea": "Receiving Area",
     "deliverydate": "Delivery date", "deliveryperiod": "Delivery period",
+    "deliverytime": "Delivery period",
     "firm": "Firm", "classification": "Classification", "ponumber": "PO number",
     "ponum": "PO number", "item": "Item", "partsnumber": "Parts number",
     "partnumber": "Parts number", "partsname": "Parts name", "partname": "Parts name",

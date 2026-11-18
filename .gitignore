@@ -1,34 +1,30 @@
-# Python virtual environments
-.venv/
+# Python
+**/__pycache__/
+**/*.py[cod]
 **/.venv/
+**/venv/
+.venv-build/
 
-# Python cache and test files
-__pycache__/
-*.py[cod]
-.pytest_cache/
-
-# Frontend dependencies and build output
-node_modules/
+# Node / frontend build
 **/node_modules/
+fe/dist/
 dist/
-**/dist/
 
-# Environment variables and secrets
+# Local settings, logs and uploaded/generated workbooks
+be/data/*.db
+data/*.db
+uploads/
+outputs/
+logs/
+*.log
+
+# Secrets and local environment
 .env
 .env.*
 !.env.example
 
-# Editor and operating system files
-.vscode/
-.DS_Store
-Thumbs.db
-# Local application data (SQLite, logs, work files, customer workbooks)
-be/data/
-data/
-*.db
-*.sqlite
-*.sqlite3
-outputs/
-output/
-backup/
-work/
+# Company / operational Excel data - never publish these
+*.xlsx
+*.xls
+*.xlsm
+*.xlsb
